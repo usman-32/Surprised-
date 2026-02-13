@@ -3,37 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Usman ❤️ Malaika</title>
+<title>For My Love ❤️</title>
 
 <style>
 body {
   margin:0;
   font-family:Segoe UI;
-  background:url("https://images.unsplash.com/photo-1517849845537-4d257902454a") no-repeat center center/cover;
+  background:linear-gradient(135deg,#6a0dad,#ff4d6d);
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  overflow:hidden;
   color:white;
 }
 
 #box {
-  background:rgba(0,0,0,0.6);
-  padding:25px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  padding:20px;
   border-radius:20px;
   width:90%;
   max-width:420px;
   text-align:center;
-  box-shadow:0 0 25px black;
-}
-
-h1 {
-  font-size:26px;
-  color:#ff4d6d;
-}
-
-p {
-  font-size:18px;
+  box-shadow:0 0 20px black;
 }
 
 button {
@@ -46,43 +39,140 @@ button {
 }
 
 #yes {background:red;color:white;}
-#no {background:white;color:red;position:absolute;}
+#no {background:white;color:#6a0dad;position:absolute;}
+
+.hidden {display:none;}
+h1 {font-size:22px;}
+p {font-size:17px;}
+
+.heart {
+  position:absolute;
+  font-size:22px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall {
+  from {transform:translateY(-10vh);}
+  to {transform:translateY(110vh);}
+}
 </style>
 </head>
 
 <body>
 
+<audio autoplay loop>
+  <source src="https://www.fesliyanstudios.com/play-mp3/387">
+</audio>
+
 <div id="box">
-<h1>🌹 Usman ❤️ Malaika 🌹</h1>
-<p>My beautiful wife Malaika, you are my world 💖</p>
-<p id="q">Will you stay with me forever?</p>
 
-<button id="yes" onclick="love()">YES 😘</button>
+<div id="screen1">
+<h1 id="q">🌹 Ready for my love surprise ? 💕</h1>
+<button id="yes" onclick="next()">Yes 😘</button>
 <button id="no" onmouseover="moveNo()">No 😜</button>
+</div>
 
-<p id="msg"></p>
+<div id="screen2" class="hidden">
+<h1>💌 My Love Letter</h1>
+<p id="letter"></p>
+<button id="yes" onclick="proposal()">Next 💍</button>
+</div>
+
+<div id="screen3" class="hidden">
+<h1>Will you marry me Musu? 💍❤️</h1>
+<button id="yes" onclick="fireworks()">YESSS 😍</button>
+<button id="no" onmouseover="moveNo()">No 😏</button>
+</div>
+
+<div id="screen4" class="hidden">
+<h1>💞 Our Memories</h1>
+<img id="photo" width="100%" style="border-radius:15px;">
+<p>I love you forever ❤️</p>
+</div>
+
 </div>
 
 <script>
+const questions=[
+"Are you the most beautiful girl in the world? 😍",
+"Do I make you happy every day? 💖",
+"Will you be my Valentine forever? ❤️"
+];
+let i=-1;
+const q=document.getElementById("q");
 const noBtn=document.getElementById("no");
 
+// Question Game
+function next(){
+ i++;
+ if(i<questions.length){ q.innerText=questions[i]; }
+ else{
+  document.getElementById("screen1").classList.add("hidden");
+  document.getElementById("screen2").classList.remove("hidden");
+  typeLetter();
+ }
+}
+
+// Move No Button
 function moveNo(){
  let x=Math.random()*200-100;
  let y=Math.random()*100-50;
  noBtn.style.transform=`translate(${x}px,${y}px)`;
 }
 
-function love(){
- document.getElementById("msg").innerHTML =
- "Malaika 💕 I love you so much! You are my rose 🌹 forever. Your husband Usman ❤️";
+// Urdu Love Letter
+const msg=`My love forever💕
+Tum meri zindagi ho.
+Tum se bohot mohabbat karta hoon.
+Main tumhare bina reh nahi sakta.
+Kya tum hamesha mere saath rahogi? ❤️`;
+let idx=0;
+function typeLetter(){
+ if(idx<msg.length){
+  document.getElementById("letter").innerHTML += msg[idx]=="\n"?"<br>":msg[idx];
+  idx++;
+  setTimeout(typeLetter,50);
+ }
 }
-</script>
 
-</body>
-</html>
-function noLove() {
-  alert("Please say YES Malaika 😭💔");
+// Proposal Page
+function proposal(){
+ document.getElementById("screen2").classList.add("hidden");
+ document.getElementById("screen3").classList.remove("hidden");
 }
+
+// Fireworks + Photos
+function fireworks(){
+ alert("She said YES! 🎆 I love you Musu ❤️");
+ document.getElementById("screen3").classList.add("hidden");
+ document.getElementById("screen4").classList.remove("hidden");
+ slideshow();
+}
+
+// Slideshow
+const photos=[
+"https://i.imgur.com/3yZK6XK.jpg",
+"https://i.imgur.com/1ZQZ1Zm.jpg",
+"https://i.imgur.com/4AiXzf8.jpg"
+];
+let p=0;
+function slideshow(){
+ const img=document.getElementById("photo");
+ img.src=photos[p];
+ p=(p+1)%photos.length;
+ setTimeout(slideshow,2000);
+}
+
+// Falling Hearts
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=(Math.random()*3+2)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},300);
 </script>
 
 </body>
