@@ -1,80 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Usman ❤️ Malaika</title>
+
 <style>
 body {
-  background: linear-gradient(to bottom, #ff1e56, #ffac41);
-  text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
-  padding-top: 80px;
-  overflow: hidden;
+  margin:0;
+  font-family:Segoe UI;
+  background:url("https://images.unsplash.com/photo-1517849845537-4d257902454a") no-repeat center center/cover;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
-/* Floating Roses */
-.rose {
-  position: fixed;
-  top: -50px;
-  font-size: 30px;
-  animation: fall 10s linear infinite;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-100px); opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
+#box {
+  background:rgba(0,0,0,0.6);
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  box-shadow:0 0 25px black;
 }
 
 h1 {
-  font-size: 50px;
-  text-shadow: 0 0 20px red;
+  font-size:26px;
+  color:#ff4d6d;
+}
+
+p {
+  font-size:18px;
 }
 
 button {
-  padding: 15px 30px;
-  font-size: 20px;
-  border: none;
-  border-radius: 30px;
-  background: white;
-  color: red;
-  cursor: pointer;
-  margin: 10px;
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-button:hover {
-  background: red;
-  color: white;
-}
+#yes {background:red;color:white;}
+#no {background:white;color:red;position:absolute;}
 </style>
 </head>
 
 <body>
 
-<h1>Usman ❤️ Malaika</h1>
-<h2>My love, will you be my Valentine forever? 💖</h2>
+<div id="box">
+<h1>🌹 Usman ❤️ Malaika 🌹</h1>
+<p>My beautiful wife Malaika, you are my world 💖</p>
+<p id="q">Will you stay with me forever?</p>
 
-<button onclick="yesLove()">YES 😍</button>
-<button onclick="noLove()">NO 😢</button>
+<button id="yes" onclick="love()">YES 😘</button>
+<button id="no" onmouseover="moveNo()">No 😜</button>
+
+<p id="msg"></p>
+</div>
 
 <script>
-// Falling Roses
-for(let i=0; i<30; i++){
-  let rose = document.createElement("div");
-  rose.innerHTML = "🌹";
-  rose.className = "rose";
-  rose.style.left = Math.random()*100 + "vw";
-  rose.style.animationDuration = (5 + Math.random()*5) + "s";
-  document.body.appendChild(rose);
+const noBtn=document.getElementById("no");
+
+function moveNo(){
+ let x=Math.random()*200-100;
+ let y=Math.random()*100-50;
+ noBtn.style.transform=`translate(${x}px,${y}px)`;
 }
 
-function yesLove() {
-  document.body.innerHTML = `
-  <h1>💖 Malaika Said YES! 💖</h1>
-  <h2>I love you forever, Malaika 🌹</h2>
-  <p>— Your Husband Usman</p>
-  `;
+function love(){
+ document.getElementById("msg").innerHTML =
+ "Malaika 💕 I love you so much! You are my rose 🌹 forever. Your husband Usman ❤️";
 }
+</script>
 
+</body>
+</html>
 function noLove() {
   alert("Please say YES Malaika 😭💔");
 }
