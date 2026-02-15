@@ -3,176 +3,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+<title>Happy Birthday Noor Fatima</title>
 
 <style>
-body {
+body{
   margin:0;
-  font-family:Segoe UI;
-  background:linear-gradient(135deg,#6a0dad,#ff4d6d);
+  font-family: Arial;
   height:100vh;
+  overflow:hidden;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
   color:white;
+  position: relative;
+  background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #ffecd2);
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
 }
 
-#box {
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
+/* Animated gradient background */
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Falling Roses & Balloons */
+.rose, .balloon{
+  position:fixed;
+  top:-50px;
+  font-size:30px;
+  animation: fall linear infinite;
+}
+.balloon{font-size:40px;}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* Confetti */
+.confetti{
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: pink;
+  top: 0;
+  left: 50%;
+  z-index: 9999;
+  border-radius:50%;
+  opacity:0.9;
+}
+
+/* Container */
+.container{
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
   padding:20px;
   border-radius:20px;
-  width:90%;
-  max-width:420px;
   text-align:center;
-  box-shadow:0 0 20px black;
+  width:90%;
+  max-width:400px;
+  box-shadow:0 0 20px pink;
 }
 
-button {
+.step{display:none;}
+.active{display:block;}
+
+button{
   padding:12px 25px;
   border:none;
   border-radius:25px;
-  font-size:18px;
-  font-weight:bold;
+  background:linear-gradient(45deg,#ff00cc,#ff0066);
+  color:white;
+  font-size:16px;
   cursor:pointer;
+  margin-top:15px;
+  position: relative;
 }
 
-#yes {background:red;color:white;}
-#no {background:white;color:#6a0dad;position:absolute;}
-
-.hidden {display:none;}
-h1 {font-size:22px;}
-p {font-size:17px;}
-
-.heart {
-  position:absolute;
-  font-size:22px;
-  animation:fall linear infinite;
+.cake{
+  font-size:90px;
+  cursor:pointer;
+  animation:bounce 1s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
 }
 
-@keyframes fall {
-  from {transform:translateY(-10vh);}
-  to {transform:translateY(110vh);}
+/* YouTube iframe hidden at start */
+#ytplayer{display:none; margin-top:15px;}
+
+/* YES / NO buttons at end */
+#question-buttons button{
+  margin:10px;
+}
+
+/* NO button moves on hover */
+#noBtn:hover{
+  position: absolute;
+  top: calc(50% - 25px + (Math.random()*100-50)px);
+  left: calc(50% - 50px + (Math.random()*100-50)px);
 }
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://www.fesliyanstudios.com/play-mp3/387">
-</audio>
+<div class="container">
 
-<div id="box">
+<!-- Step 1 -->
+<div id="step1" class="step active">
+  <h2>Dear Noor Fatima 💜</h2>
+  <p>A Birthday Surprise From Your Brother</p>
+  
+  <!-- Play Song Button -->
+  <button onclick="playYT()">Play Song 🎶</button>
 
-<div id="screen1">
-<h1 id="q">🌹 Ready for my love surprise ? 💕</h1>
-<button id="yes" onclick="next()">Yes 😘</button>
-<button id="no" onmouseover="moveNo()">No 😜</button>
+  <!-- YouTube Hidden Player -->
+  <div id="ytplayer">
+    <iframe id="ytframe" width="0" height="0" 
+      src="" 
+      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+  </div>
+
+  <button onclick="startSurprise()">Start Surprise</button>
 </div>
 
-<div id="screen2" class="hidden">
-<h1>💌 My Love Letter</h1>
-<p id="letter"></p>
-<button id="yes" onclick="proposal()">Next 💍</button>
+<!-- Step 2 -->
+<div id="step2" class="step">
+  <h3>Who is it?</h3>
+  <input id="nameInput" placeholder="Type your name">
+  <br>
+  <button onclick="checkName()">Enter</button>
 </div>
 
-<div id="screen3" class="hidden">
-<h1>Will you marry me Musu? 💍❤️</h1>
-<button id="yes" onclick="fireworks()">YESSS 😍</button>
-<button id="no" onmouseover="moveNo()">No 😏</button>
+<!-- Step 3 -->
+<div id="step3" class="step">
+  <h2>For My Sweet Sister 🌹</h2>
+  <p>Tap the heart</p>
+  <div style="font-size:70px;cursor:pointer;" onclick="nextStep(4)">❤️</div>
 </div>
 
-<div id="screen4" class="hidden">
-<h1>💞 Our Memories</h1>
-<img id="photo" width="100%" style="border-radius:15px;">
-<p>I love you forever ❤️</p>
+<!-- Step 4 -->
+<div id="step4" class="step">
+  <h2>Cut the Cake 🎂</h2>
+  <div class="cake" onclick="nextStep(5)">🎂</div>
+  <p>Tap the cake</p>
+</div>
+
+<!-- Step 5 -->
+<div id="step5" class="step">
+  <h2>💌 Wishing Letter</h2>
+  <p style="background:white;color:black;padding:15px;border-radius:12px;">
+    Dear Noor Fatima,<br><br>
+    You are not only my sister but my best friend 💖  
+    May Allah bless you with happiness and success.  
+    Always smile like a shining star ⭐  
+    <br><br>
+    Love,  
+    <br><b>🌹♥️</b>
+  </p>
+  <button onclick="nextStep(6)">Final Surprise 🎉</button>
+</div>
+
+<!-- Step 6 -->
+<div id="step6" class="step">
+  <h2>🎉 HAPPY BIRTHDAY NOOR FATIMA 🎉</h2>
+  <p>You are the best sister 💜</p>
+  <button onclick="triggerConfetti(); nextStep(7)">Answer Questions ❤️</button>
+</div>
+
+<!-- Step 7: Questions -->
+<div id="step7" class="step">
+  <h2>Do you like it?</h2>
+  <div id="question-buttons">
+    <button onclick="alert('Yay! So glad 😍')">YES</button>
+    <button id="noBtn">NO</button>
+  </div>
+  <h3>How was your birthday?</h3>
+  <div id="question-buttons">
+    <button onclick="alert('Happy to hear! 💖')">Great</button>
+    <button onclick="alert('We will make next one better! 🌹')">Not so good</button>
+  </div>
+
+  <br>
+  <button onclick="reactWhatsApp()">React ♥️🌹</button>
 </div>
 
 </div>
 
 <script>
-const questions=[
-"Are you the most beautiful girl in the world? 😍",
-"Do I make you happy every day? 💖",
-"Will you be my Valentine forever? ❤️"
-];
-let i=-1;
-const q=document.getElementById("q");
-const noBtn=document.getElementById("no");
-
-// Question Game
-function next(){
- i++;
- if(i<questions.length){ q.innerText=questions[i]; }
- else{
-  document.getElementById("screen1").classList.add("hidden");
-  document.getElementById("screen2").classList.remove("hidden");
-  typeLetter();
- }
+// Step navigation
+function nextStep(n){
+  document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+  document.getElementById("step"+n).classList.add("active");
 }
 
-// Move No Button
-function moveNo(){
- let x=Math.random()*200-100;
- let y=Math.random()*100-50;
- noBtn.style.transform=`translate(${x}px,${y}px)`;
+// Start surprise
+function startSurprise(){
+  nextStep(2);
+  createRoses();
+  createBalloons();
 }
 
-// Urdu Love Letter
-const msg=`My love forever💕
-Tum meri zindagi ho.
-Tum se bohot mohabbat karta hoon.
-Main tumhare bina reh nahi sakta.
-Kya tum hamesha mere saath rahogi? ❤️`;
-let idx=0;
-function typeLetter(){
- if(idx<msg.length){
-  document.getElementById("letter").innerHTML += msg[idx]=="\n"?"<br>":msg[idx];
-  idx++;
-  setTimeout(typeLetter,50);
- }
+// Check name input
+function checkName(){
+  let n = document.getElementById("nameInput").value.toLowerCase();
+  if(n.includes("noor")) nextStep(3);
+  else alert("Type Noor Fatima 😁");
 }
 
-// Proposal Page
-function proposal(){
- document.getElementById("screen2").classList.add("hidden");
- document.getElementById("screen3").classList.remove("hidden");
+// Create falling roses
+function createRoses(){
+  setInterval(()=>{
+    let r = document.createElement("div");
+    r.className="rose";
+    r.innerHTML="🌹";
+    r.style.left = Math.random()*100+"vw";
+    r.style.animationDuration = (Math.random()*3+4)+"s";
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(),7000);
+  },300);
 }
 
-// Fireworks + Photos
-function fireworks(){
- alert("She said YES! 🎆 I love you Musu ❤️");
- document.getElementById("screen3").classList.add("hidden");
- document.getElementById("screen4").classList.remove("hidden");
- slideshow();
+// Create falling balloons
+function createBalloons(){
+  setInterval(()=>{
+    let b = document.createElement("div");
+    b.className="balloon";
+    let balloons = ['🎈','🎉','🎊','💖'];
+    b.innerHTML = balloons[Math.floor(Math.random()*balloons.length)];
+    b.style.left = Math.random()*100+"vw";
+    b.style.animationDuration = (Math.random()*3+5)+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),7000);
+  },400);
 }
 
-// Slideshow
-const photos=[
-"https://i.imgur.com/3yZK6XK.jpg",
-"https://i.imgur.com/1ZQZ1Zm.jpg",
-"https://i.imgur.com/4AiXzf8.jpg"
-];
-let p=0;
-function slideshow(){
- const img=document.getElementById("photo");
- img.src=photos[p];
- p=(p+1)%photos.length;
- setTimeout(slideshow,2000);
+// Play YouTube song instantly
+function playYT(){
+  document.getElementById("ytplayer").style.display="block";
+  let iframe = document.getElementById("ytframe");
+  iframe.src = "https://www.youtube.com/embed/ex5H4XgMhRI?autoplay=1";
 }
 
-// Falling Hearts
-setInterval(()=>{
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="❤️";
- h.style.left=Math.random()*100+"vw";
- h.style.animationDuration=(Math.random()*3+2)+"s";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),5000);
-},300);
+// WhatsApp reaction
+function reactWhatsApp(){
+  window.open("https://wa.me/923360666774?text=Happy%20Birthday%20Noor%20Fatima!%20♥️🌹","_blank");
+}
+
+// Confetti explosion at Step 6
+function triggerConfetti(){
+  for(let i=0;i<100;i++){
+    let c = document.createElement("div");
+    c.className="confetti";
+    c.style.background = ['#ff0066','#ffcc00','#33ccff','#ff00cc','#00ff99'][Math.floor(Math.random()*5)];
+    c.style.left = Math.random()*100+"vw";
+    c.style.top = Math.random()*-20+"px";
+    c.style.width = c.style.height = Math.random()*10+5+"px";
+    document.body.appendChild(c);
+    let fall = setInterval(()=>{
+      c.style.top = (parseFloat(c.style.top)+Math.random()*5+2)+"px";
+      if(parseFloat(c.style.top) > window.innerHeight) c.remove();
+    },20);
+  }
+}
 </script>
 
 </body>
